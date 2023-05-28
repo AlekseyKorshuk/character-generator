@@ -9,7 +9,7 @@ def remove_duplicates(sample):
     temp = []
     res = dict()
     for key, val in sample.items():
-        if val not in temp and val is not None:
+        if val not in temp and val is not None and val != "":
             temp.append(val)
             res[key] = val
     return res
