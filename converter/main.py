@@ -15,7 +15,8 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     device_map="auto"
 ).eval()
 tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "eachadea/vicuna-13b-1.1"
+    "eachadea/vicuna-13b-1.1",
+    use_fast=False
 )
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 
