@@ -38,6 +38,9 @@ for setting in settings:
     )
     expected_keys = setting["examples"][0]["outputs"].keys()
     print(out)
+    import pdb;
+
+    pdb.set_trace()
     for expected_key in expected_keys:
         bot_config[expected_key] = out[expected_key]
 
