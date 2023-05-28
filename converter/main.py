@@ -20,7 +20,7 @@ sample = ds[256]
 #     "huggyllama/llama-7b"
 # )
 # guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
-guidance.llm = guidance.llms.Transformers("huggyllama/llama-7b", device=0)
+guidance.llm = guidance.llms.Transformers("huggyllama/llama-13b", device=0)
 # import pdb;
 #
 # pdb.set_trace()
