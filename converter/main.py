@@ -1,5 +1,5 @@
 import torch
-from datasets import load_dataset
+from datasets import load_dataset, Dataset
 import guidance
 import transformers
 import tqdm
@@ -9,44 +9,43 @@ from converter.settings import settings
 
 ds = load_dataset("AlekseyKorshuk/roleplay-characters", split="train")
 
-sample = ds[256]
-
 model = transformers.AutoModelForCausalLM.from_pretrained(
-    "huggyllama/llama-7b",
+    "EleutherAI/pythia-12b-deduped",
     torch_dtype=torch.float16,
     device_map="auto"
 ).eval()
 tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "huggyllama/llama-7b"
+    "EleutherAI/pythia-12b-deduped"
 )
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
-# guidance.llm = guidance.llms.Transformers("huggyllama/llama-13b", device=0)
-# import pdb;
-#
-# pdb.set_trace()
 
-bot_config = {}
-for setting in tqdm.tqdm(settings):
-    guidance.llms.Transformers.cache.clear()
-    guidance.llms.OpenAI.cache.clear()
+configs = []
+for sample in tqdm.tqdm(ds):
 
-    prompt = construct_guidance(
-        description=setting["description"],
-        request_format=setting["request"],
-    )
+    bot_config = {}
+    for setting in settings:
+        guidance.llms.Transformers.cache.clear()
+        guidance.llms.OpenAI.cache.clear()
 
-    sample = prepare_sample(sample)
-    inputs = get_sub_dict(sample, setting["input_keys"])
-    out = prompt(
-        examples=prepare_examples(setting["examples"]),
-        query=prepare_query(inputs),
-    )
-    expected_keys = setting["examples"][0]["outputs"].keys()
-    print(out)
-    for expected_key in expected_keys:
-        bot_config[expected_key] = out[expected_key]
+        prompt = construct_guidance(
+            description=setting["description"],
+            request_format=setting["request"],
+        )
 
-print(bot_config)
+        sample = prepare_sample(sample)
+        inputs = get_sub_dict(sample, setting["input_keys"])
+        out = prompt(
+            examples=prepare_examples(setting["examples"]),
+            query=prepare_query(inputs),
+        )
+        expected_keys = setting["examples"][0]["outputs"].keys()
+        for expected_key in expected_keys:
+            bot_config[expected_key] = out[expected_key]
+    print(bot_config)
+    configs.append(bot_config)
+
+ds_config = Dataset.from_list(configs)
+ds_config.push_to_hub("AlekseyKorshuk/character-prepared")
 import pdb;
 
 pdb.set_trace()
