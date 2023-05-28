@@ -32,13 +32,13 @@ from converter.settings.conversation import (
 settings = [
     {
         "description": name_description,
-        "example": name_examples,
+        "examples": name_examples,
         "request": name_request,
         "input_keys": name_input_keys
     },
     {
         "description": label_description,
-        "example": label_examples,
+        "examples": label_examples,
         "request": label_request,
         "input_keys": label_input_keys
     },
@@ -50,13 +50,13 @@ settings = [
     },
     {
         "description": greating_description,
-        "example": greating_examples,
+        "examples": greating_examples,
         "request": greating_request,
         "input_keys": greating_input_keys
     },
     {
         "description": conversation_description,
-        "example": conversation_examples,
+        "examples": conversation_examples,
         "request": conversation_request,
         "input_keys": conversation_input_keys
     },
