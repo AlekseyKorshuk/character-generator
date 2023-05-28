@@ -24,10 +24,11 @@ prepared_dataset = load_dataset("AlekseyKorshuk/character-prepared", split="trai
 # guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 guidance.llm = guidance.llms.OpenAI("text-davinci-003")
 
-configs = []
+configs = list(prepared_dataset)
 for sample in tqdm.tqdm(ds):
     name = sample["char_name"] or sample["name"]
-    if name in prepared_dataset["original_name"]:
+    if name in list(prepared_dataset["original_name"]):
+        print("Skip, already in the dataset")
         continue
 
     try:
