@@ -22,7 +22,7 @@ config = transformers.AutoConfig.from_pretrained(
     trust_remote_code=True
 )
 config.update({"max_seq_len": 16384})
-config.attn_config['attn_impl'] = 'triton'
+# config.attn_config['attn_impl'] = 'triton'
 model = transformers.AutoModelForCausalLM.from_pretrained(
     'mosaicml/mpt-7b-storywriter',
     config=config,
