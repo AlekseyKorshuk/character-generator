@@ -1,3 +1,5 @@
 guidance
 transformers
 datasets
+einops
+accelerate

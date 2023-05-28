@@ -27,7 +27,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     'mosaicml/mpt-7b-storywriter',
     config=config,
     trust_remote_code=True,
-    device_map="auto",
+    device=0,
     torch_dtype=torch.bfloat16,
 )
 
