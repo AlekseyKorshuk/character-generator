@@ -71,3 +71,6 @@ structure_program = guidance(
 out = structure_program(
     sample=res,
 )
+
+print(out)
+import pdb; pdb.set_trace()
