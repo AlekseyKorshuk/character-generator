@@ -19,7 +19,16 @@ for key, val in sample.items():
 
 # set the default language model used to execute guidance programs
 # guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
-guidance.llm = guidance.llms.Transformers("CarperAI/pythia-6.9b-deduped-4k", device=0)
+model = transformers.AutoModelForCausalLM.from_pretrained(
+    "huggyllama/llama-7b",
+    torch_dtype=torch.float16,
+)
+model.eval().to(device='cuda:0')
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "huggyllama/llama-7b"
+)
+
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device=0)
 guidance.llms.Transformers.cache.clear()
 guidance.llms.OpenAI.cache.clear()
 
