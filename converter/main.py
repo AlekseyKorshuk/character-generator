@@ -11,15 +11,16 @@ ds = load_dataset("AlekseyKorshuk/roleplay-characters", split="train")
 
 sample = ds[256]
 
-model = transformers.AutoModelForCausalLM.from_pretrained(
-    "huggyllama/llama-7b",
-    torch_dtype=torch.float16,
-    device_map="auto"
-).eval()
-tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "huggyllama/llama-7b"
-)
-guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
+# model = transformers.AutoModelForCausalLM.from_pretrained(
+#     "huggyllama/llama-7b",
+#     torch_dtype=torch.float16,
+#     device_map="auto"
+# ).eval()
+# tokenizer = transformers.AutoTokenizer.from_pretrained(
+#     "huggyllama/llama-7b"
+# )
+# guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
+guidance.llm = guidance.llms.Transformers("huggyllama/llama-7b", device=0)
 
 bot_config = {}
 for setting in tqdm.tqdm(settings):
