@@ -27,7 +27,7 @@ guidance.llm = guidance.llms.OpenAI("text-davinci-003")
 configs = []
 for sample in tqdm.tqdm(ds):
     name = sample["char_name"] or sample["name"]
-    if name in sample[prepared_dataset["original_name"]:
+    if name in prepared_dataset["original_name"]:
         continue
 
     try:
@@ -60,7 +60,6 @@ for sample in tqdm.tqdm(ds):
         ds_config.push_to_hub("AlekseyKorshuk/character-prepared")
     except Exception as ex:
         print(ex)
-
 
 import pdb;
 
