@@ -44,7 +44,7 @@ settings = [
     },
     {
         "description": description_description,
-        "example": description_examples,
+        "examples": description_examples,
         "request": description_request,
         "input_keys": description_input_keys
     },
