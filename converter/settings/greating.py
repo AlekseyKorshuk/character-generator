@@ -1,7 +1,8 @@
 greating_description = """Refine the role-play character's initial greeting from the given text:
 1. Encase actions in asterisks, e.g., "*He gives you a present* Congrats!".
 2. Change "user" to "you".
-3. Improve text quality and grammar but keep slang intact."""
+3. Should not include example conversation, but only character message.
+4. Improve text quality and grammar but keep slang intact."""
 
 greating_examples = [
     {
