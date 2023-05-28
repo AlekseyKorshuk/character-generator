@@ -21,6 +21,9 @@ sample = ds[256]
 # )
 # guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 guidance.llm = guidance.llms.Transformers("huggyllama/llama-7b", device=0)
+import pdb;
+
+pdb.set_trace()
 
 bot_config = {}
 for setting in tqdm.tqdm(settings):
