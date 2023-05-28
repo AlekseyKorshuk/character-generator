@@ -110,7 +110,7 @@ description_examples = [
 ]
 
 description_request = {
-    'description': "{{gen 'description' max_tokens=512}}"
+    'description': "{{gen 'description' max_tokens=1024}}"
 }
 
 description_input_keys = ["char_name", "name", "char_persona", "description", "personality", "world_scenario",
