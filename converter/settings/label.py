@@ -8,7 +8,7 @@ label_examples = [
             "name": "Dingodile (Crash Bandicoot) - R18+"
         },
         "outputs": {
-            "name": "Dingodile"
+            "label": "Dingodile"
         }
     },
     {
@@ -16,7 +16,7 @@ label_examples = [
             "char_name": "Zombina"
         },
         "outputs": {
-            "name": "Zombina"
+            "label": "Zombina"
         }
     },
     {
@@ -24,7 +24,7 @@ label_examples = [
             "name": "toph bei fong"
         },
         "outputs": {
-            "name": "Toph Bei Fong"
+            "label": "Toph Bei Fong"
         }
     }
 ]

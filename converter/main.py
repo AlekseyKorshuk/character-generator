@@ -2,6 +2,7 @@ import torch
 from datasets import load_dataset
 import guidance
 import transformers
+import tqdm
 
 from converter.utils import construct_guidance, prepare_sample, get_sub_dict, prepare_examples, prepare_query
 from converter.settings import settings
@@ -21,7 +22,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 
 bot_config = {}
-for setting in settings:
+for setting in tqdm.tqdm(settings):
     guidance.llms.Transformers.cache.clear()
     guidance.llms.OpenAI.cache.clear()
 
@@ -38,9 +39,6 @@ for setting in settings:
     )
     expected_keys = setting["examples"][0]["outputs"].keys()
     print(out)
-    import pdb;
-
-    pdb.set_trace()
     for expected_key in expected_keys:
         bot_config[expected_key] = out[expected_key]
 
