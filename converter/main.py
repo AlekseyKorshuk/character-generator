@@ -10,12 +10,12 @@ from converter.settings import settings
 ds = load_dataset("AlekseyKorshuk/roleplay-characters", split="train")
 
 model = transformers.AutoModelForCausalLM.from_pretrained(
-    "EleutherAI/pythia-12b-deduped",
+    "huggyllama/llama-13b",
     torch_dtype=torch.float16,
     device_map="auto"
 ).eval()
 tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "EleutherAI/pythia-12b-deduped"
+    "huggyllama/llama-13b"
 )
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 
