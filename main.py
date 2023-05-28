@@ -29,11 +29,17 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     trust_remote_code=True,
     torch_dtype=torch.bfloat16,
 )
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.eval()
+model.to(device=device, dtype=torch.bfloat16)
 
-tokenizer = transformers.AutoTokenizer.from_pretrained("mosaicml/mpt-7b-storywriter")
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "mosaicml/mpt-7b-storywriter",
+    trust_remote_code=True
+)
 
 # set the default language model used to execute guidance programs
-guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device=device)
 guidance.llms.Transformers.cache.clear()
 guidance.llms.OpenAI.cache.clear()
 
