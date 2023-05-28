@@ -28,8 +28,8 @@ for sample in tqdm.tqdm(ds):
 
     bot_config = {}
     for setting in settings:
-        guidance.llms.Transformers.cache.clear()
-        guidance.llms.OpenAI.cache.clear()
+        # guidance.llms.Transformers.cache.clear()
+        # guidance.llms.OpenAI.cache.clear()
 
         prompt = construct_guidance(
             description=setting["description"],
