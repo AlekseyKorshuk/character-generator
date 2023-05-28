@@ -68,6 +68,7 @@ structure_program = guidance(
 
 # execute the program
 
+print("Generating..")
 out = structure_program(
     sample=res,
 )
