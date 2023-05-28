@@ -48,6 +48,7 @@ for sample in tqdm.tqdm(ds):
         for expected_key in expected_keys:
             bot_config[expected_key] = out[expected_key]
     bot_config["image"] = sample["image"]
+    bot_config["original_name"] = sample["char_name"] or sample["name"]
     print(bot_config)
     configs.append(bot_config)
     ds_config = Dataset.from_list(configs)
