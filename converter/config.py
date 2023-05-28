@@ -9,4 +9,7 @@ Converted config:
 {{this.outputs}}
 ---
 {{~/each}}
-{{query}}'''
+Initial config:
+{{query}}
+Converted config:
+'''
