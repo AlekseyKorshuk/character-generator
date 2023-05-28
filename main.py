@@ -21,7 +21,7 @@ config = transformers.AutoConfig.from_pretrained(
     'mosaicml/mpt-7b-storywriter',
     trust_remote_code=True
 )
-config.update({"max_seq_len": 16384})
+config.update({"max_seq_len": 8192})
 # config.attn_config['attn_impl'] = 'triton'
 model = transformers.AutoModelForCausalLM.from_pretrained(
     'mosaicml/mpt-7b-storywriter',
@@ -73,4 +73,6 @@ out = structure_program(
 )
 
 print(out)
-import pdb; pdb.set_trace()
+import pdb;
+
+pdb.set_trace()
