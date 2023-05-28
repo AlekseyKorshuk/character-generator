@@ -17,29 +17,8 @@ for key, val in sample.items():
         temp.append(val)
         res[key] = val
 
-config = transformers.AutoConfig.from_pretrained(
-    'mosaicml/mpt-7b-storywriter',
-    trust_remote_code=True
-)
-config.update({"max_seq_len": 8192})
-# config.attn_config['attn_impl'] = 'triton'
-model = transformers.AutoModelForCausalLM.from_pretrained(
-    'mosaicml/mpt-7b-storywriter',
-    config=config,
-    trust_remote_code=True,
-    torch_dtype=torch.bfloat16,
-)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.eval()
-model.to(device=device, dtype=torch.bfloat16)
-
-tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "mosaicml/mpt-7b-storywriter",
-    trust_remote_code=True
-)
-
 # set the default language model used to execute guidance programs
-guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device=device)
+guidance.llm = guidance.llms.Transformers("mosaicml/mpt-7b-storywriter", device=0, max_seq_len=8192)
 guidance.llms.Transformers.cache.clear()
 guidance.llms.OpenAI.cache.clear()
 
