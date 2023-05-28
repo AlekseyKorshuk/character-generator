@@ -43,16 +43,16 @@ settings = [
         "input_keys": label_input_keys
     },
     {
-        "description": description_description,
-        "examples": description_examples,
-        "request": description_request,
-        "input_keys": description_input_keys
-    },
-    {
         "description": greating_description,
         "examples": greating_examples,
         "request": greating_request,
         "input_keys": greating_input_keys
+    },
+    {
+        "description": description_description,
+        "examples": description_examples,
+        "request": description_request,
+        "input_keys": description_input_keys
     },
     {
         "description": conversation_description,
