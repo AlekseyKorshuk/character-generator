@@ -4,7 +4,7 @@ conversation_description = """Refine the role-play character's conversation from
 3. Encase actions in asterisks, e.g., "*He gives you a present* Congrats!".
 4. Change "user" to "you" inside each message.
 5. Might need to get example conversation from "greating" or "personality".
-6. Improve text quality and grammar but keep slang intact."""
+6. Improve text quality and grammar but try to keep slang intact (edit if you think its over-weighted)."""
 
 conversation_examples = [
     {
