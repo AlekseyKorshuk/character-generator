@@ -18,7 +18,8 @@ for key, val in sample.items():
         res[key] = val
 
 # set the default language model used to execute guidance programs
-guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
+# guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
+guidance.llm = guidance.llms.Transformers("CarperAI/pythia-6.9b-deduped-4k", device=0)
 guidance.llms.Transformers.cache.clear()
 guidance.llms.OpenAI.cache.clear()
 
