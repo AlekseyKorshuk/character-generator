@@ -37,6 +37,7 @@ for setting in settings:
         query=prepare_query(inputs),
     )
     expected_keys = setting["examples"][0]["outputs"].keys()
+    print(out)
     for expected_key in expected_keys:
         bot_config[expected_key] = out[expected_key]
 
