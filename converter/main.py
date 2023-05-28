@@ -18,6 +18,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "huggyllama/llama-7b"
 )
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 
 bot_config = {}
 for setting in settings:
