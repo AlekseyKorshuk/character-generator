@@ -11,6 +11,7 @@ from converter.settings import settings
 
 ds = load_dataset("AlekseyKorshuk/roleplay-characters", split="train")
 
+prepared_dataset = load_dataset("AlekseyKorshuk/character-prepared", split="train")
 # model = transformers.AutoModelForCausalLM.from_pretrained(
 #     "eachadea/vicuna-13b-1.1",
 #     torch_dtype=torch.float16,
@@ -25,34 +26,41 @@ guidance.llm = guidance.llms.OpenAI("text-davinci-003")
 
 configs = []
 for sample in tqdm.tqdm(ds):
+    name = sample["char_name"] or sample["name"]
+    if name in sample[prepared_dataset["original_name"]:
+        continue
 
-    bot_config = {}
-    for setting in settings:
-        # guidance.llms.Transformers.cache.clear()
-        # guidance.llms.OpenAI.cache.clear()
+    try:
+        bot_config = {}
+        for setting in settings:
+            # guidance.llms.Transformers.cache.clear()
+            # guidance.llms.OpenAI.cache.clear()
 
-        prompt = construct_guidance(
-            description=setting["description"],
-            request_format=setting["request"],
-        )
+            prompt = construct_guidance(
+                description=setting["description"],
+                request_format=setting["request"],
+            )
 
-        prepared_sample = prepare_sample(sample)
-        inputs = get_sub_dict(prepared_sample, setting["input_keys"])
-        if inputs == {}:
-            inputs = prepared_sample
-        out = prompt(
-            examples=prepare_examples(setting["examples"]),
-            query=prepare_query(inputs),
-        )
-        expected_keys = setting["examples"][0]["outputs"].keys()
-        for expected_key in expected_keys:
-            bot_config[expected_key] = out[expected_key]
-    bot_config["image"] = sample["image"]
-    bot_config["original_name"] = sample["char_name"] or sample["name"]
-    print(bot_config)
-    configs.append(bot_config)
-    ds_config = Dataset.from_list(configs)
-    ds_config.push_to_hub("AlekseyKorshuk/character-prepared")
+            prepared_sample = prepare_sample(sample)
+            inputs = get_sub_dict(prepared_sample, setting["input_keys"])
+            if inputs == {}:
+                inputs = prepared_sample
+            out = prompt(
+                examples=prepare_examples(setting["examples"]),
+                query=prepare_query(inputs),
+            )
+            expected_keys = setting["examples"][0]["outputs"].keys()
+            for expected_key in expected_keys:
+                bot_config[expected_key] = out[expected_key]
+        bot_config["image"] = sample["image"]
+        bot_config["original_name"] = sample["char_name"] or sample["name"]
+        print(bot_config)
+        configs.append(bot_config)
+        ds_config = Dataset.from_list(configs)
+        ds_config.push_to_hub("AlekseyKorshuk/character-prepared")
+    except Exception as ex:
+        print(ex)
+
 
 import pdb;
 
