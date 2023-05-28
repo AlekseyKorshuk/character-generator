@@ -28,7 +28,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     config=config,
     trust_remote_code=True,
     torch_dtype=torch.bfloat16,
-).to(0)
+)
 
 tokenizer = transformers.AutoTokenizer.from_pretrained("mosaicml/mpt-7b-storywriter")
 
