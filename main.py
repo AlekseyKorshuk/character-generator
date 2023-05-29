@@ -54,7 +54,7 @@ Fields:
 {{~/assistant~}}
 
 {{#assistant~}}
-{"name": "{{gen "name" max_tokens=64}}", "context": "{{gen "context" max_tokens=1024}}", "greating": "{{gen "greating" max_tokens=512}}", "example_dialogue": [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=10}}{"role": "{{#select 'this.role'}}user{{or}}char{{/select}}", "content": "{{gen "this.content"}}"}{{/geneach}}]}
+{"name": "{{gen "name" max_tokens=64}}", "context": "{{gen "context" max_tokens=1024}}", "greating": "{{gen "greating" max_tokens=512}}", "example_dialogue": [{{#geneach "conversation" stop="]" join=", " min_iterations=4 max_iterations=6}}{"role": "{{#select 'this.role'}}user{{or}}char{{/select}}", "content": "{{gen "this.content"}}"}{{/geneach}}]}
 {{~/assistant~}}
 ''')
 
