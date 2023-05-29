@@ -33,32 +33,38 @@ guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenize
 
 # define the guidance program
 structure_program = guidance(
-    '''
-    Generate well-structured character for a role-play based one the given one.
-    Rules:
-    - need to improve grammar and text quality in general
-    - allowed to rephrase or extend any part of the character config
-    - each part of the config should be well written and complete
-    - conversation must have at least 5 messages for user and character -- so you can extend
-    - rewrite in the way you are writing a story
-    Format description:
-    - name: Full name of the character
-    - label: Short name that will be used later in the conversation
-    - description: Combination of personality and environment
-    - greating: First character message that user will see
-    - conversation: example conversation, after it the greating will be passed as a prompt
-    
-    Input character:
-    {{sample}}
-    
-    Output character:
-    {
-      "name": "{{gen "name" max_tokens=64}}",
-      "label: "{{gen "name" max_tokens=64}}",
-      "description": "{{gen "description" max_tokens=1024}}",
-      "greating": "{{gen "greating" max_tokens=512}}",
-      "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=5 max_iterations=100}}{"from": "{{gen "this.from"}}", "message": "{{gen "this.message"}}"}{{/geneach}}]
-    }''')
+'''
+{{~#system~}}
+Generate well-structured character for a role-play based one the given one.
+Rules:
+- need to improve grammar and text quality in general
+- allowed to rephrase or extend any part of the character config
+- each part of the config should be well written and complete
+- conversation must have at least 5 messages for user and character -- so you can extend
+- rewrite in the way you are writing a story
+Format description:
+- name: Full name of the character
+- label: Short name that will be used later in the conversation
+- description: Combination of personality and environment
+- greating: First character message that user will see
+- conversation: example conversation, after it the greating will be passed as a prompt
+{{~/system}}
+
+{{#user~}}  
+Input character:
+{{sample}}
+{{~/user}}
+
+{{#assistant~}}
+Output character:
+{
+    "name": "{{gen "name" max_tokens=64}}",
+    "label: "{{gen "name" max_tokens=64}}",
+    "description": "{{gen "description" max_tokens=1024}}",
+    "greating": "{{gen "greating" max_tokens=512}}",
+    "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=5 max_iterations=100}}{"from": "{{gen "this.from"}}", "message": "{{gen "this.message"}}"}{{/geneach}}]
+}
+{{~/assistant~}}''')
 
 # execute the program
 
