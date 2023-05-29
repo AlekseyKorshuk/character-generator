@@ -25,7 +25,8 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
 )
 model.eval().to(device='cuda:0')
 tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "eachadea/vicuna-13b-1.1"
+    "eachadea/vicuna-13b-1.1",
+    use_fast=False
 )
 
 guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenizer)
