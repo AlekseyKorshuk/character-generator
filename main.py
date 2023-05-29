@@ -18,7 +18,17 @@ for key, val in sample.items():
         res[key] = val
 
 # set the default language model used to execute guidance programs
-guidance.llm = guidance.llms.transformers.Vicuna("eachadea/vicuna-13b-1.1", device_map="auto")
+# guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
+model = transformers.AutoModelForCausalLM.from_pretrained(
+    "eachadea/vicuna-13b-1.1",
+    torch_dtype=torch.float16,
+)
+model.eval().to(device='cuda:0')
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "eachadea/vicuna-13b-1.1"
+)
+
+guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenizer)
 
 # define the guidance program
 structure_program = guidance(
