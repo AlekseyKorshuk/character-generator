@@ -35,36 +35,31 @@ guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenize
 structure_program = guidance(
 '''
 {{~#system~}}
-Generate well-structured character for a role-play based one the given one.
-Rules:
-- need to improve grammar and text quality in general
-- allowed to rephrase or extend any part of the character config
-- each part of the config should be well written and complete
-- conversation must have at least 5 messages for user and character -- so you can extend
-- rewrite in the way you are writing a story
-Format description:
-- name: Full name of the character
-- label: Short name that will be used later in the conversation
-- description: Combination of personality and environment
-- greating: First character message that user will see
-- conversation: example conversation, after it the greating will be passed as a prompt
+Come up with new diverse characters.
+Characters can be both humans and non-humans.
+Contexts can be of different lengths.
+Try to include a biography, appearance, character and manner of speech for every character.
+
+Output the response as JSON.
+Fields:
+- name: string, character name
+- context: string, character description
+- greeting: string, default greeting
+- example_dialogue: List[Turn], where Turn = {"role": string, "content": string}. "role" is either "user" or "char". The fields contains some example chat with a character.
 {{~/system}}
 
-{{#user~}}  
-Input character:
-{{sample}}
-{{~/user}}
+{{#assistant~}}  
+{"name": "Zelara", "context": "Zelara is a 120-year-old elf who resides in the ancient forest of Lurien. She is a skilled herbalist and healer with a profound connection to nature. She has long, flowing silver hair, deep emerald eyes, and fair skin that seems to glow under the moonlight. Zelara is known for her wisdom, patience, and gentle demeanor. She speaks in a soft, melodic voice that often resembles the rustling of leaves in the wind.", "greeting": "Greetings, traveler. I am Zelara, the healer of Lurien Forest. How may I assist you?", "example_dialogue": [{"role": "user", "content": "I am in need of a remedy for a terrible headache."}, {"role": "char", "content": "Ah, I understand. Let me prepare a soothing herbal tea for you. It contains valerian root and lavender, which will calm your mind and ease your pain."}, {"role": "user", "content": "Thank you, Zelara. How long have you been a healer?"}, {"role": "char", "content": "For many decades, I have been studying the art of healing and the secrets of nature. It is my life's purpose to help those in need and to protect the balance of our world."}]}
+{{~/assistant}}
 
 {{#assistant~}}
-Output character:
-{
-    "name": "{{gen "name" max_tokens=64}}",
-    "label: "{{gen "name" max_tokens=64}}",
-    "description": "{{gen "description" max_tokens=1024}}",
-    "greating": "{{gen "greating" max_tokens=512}}",
-    "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=5 max_iterations=100}}{"from": "{{gen "this.from"}}", "message": "{{gen "this.message"}}"}{{/geneach}}]
-}
-{{~/assistant~}}''')
+{"name": "Captain Rigel", "context": "Captain Rigel is a 45-year-old human space pirate from the planet Zarqon IV. He is a charismatic and cunning leader with a fierce reputation. Rigel has a muscular build, a chiseled jawline, and short-cropped black hair with streaks of silver. He sports a distinctive eye patch over his left eye and a scar across his right cheek, souvenirs from past battles. Rigel is a persuasive speaker and often employs humor and sarcasm to get his point across.", "greeting": "Ahoy there, matey! I'm Captain Rigel, the most feared space pirate in the galaxy! What brings you to my humble ship?", "example_dialogue": [{"role": "user", "content": "I heard you're the one to see for passage to the Andromeda system."}, {"role": "char", "content": "Haha! You've come to the right place. But be warned, it's not a journey for the faint of heart. You sure you're up for it?"}, {"role": "user", "content": "I'm more than capable, Captain. How much will it cost?"}, {"role": "char", "content": "Well, that depends on how valuable your skills are. If you can prove useful to my crew, we might be able to strike a deal. How about a little wager to test your mettle?"}]}
+{{~/assistant~}}
+
+{{#assistant~}}
+{"name": "{{gen "name" max_tokens=64}}", "context": "{{gen "context" max_tokens=1024}}", "greating": "{{gen "greating" max_tokens=512}}", "example_dialogue": [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=10}}{"role": "{{#select 'this.from'}}user{{or}}character{{/select}}", "content": "{{gen "this.content"}}"}{{/geneach}}]}
+{{~/assistant~}}
+''')
 
 # execute the program
 
