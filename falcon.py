@@ -39,7 +39,7 @@ Fields:
 Characters:
 {{~! display the few-shot examples ~}}
 {{~#each examples}}
-{{this.inputs}}
+{{this}}
 {{~/each}}
 {"name": "{{gen "name" max_tokens=64}}", "description": "{{gen "context" max_tokens=768}}", "greating": "{{gen "greating" max_tokens=512}}", "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=4 max_iterations=6}}{"from": "{{#select 'this.role'}}user{{or}}character{{/select}}", "value": "{{gen "this.value"}}"}{{/geneach}}]}
 '''.strip()
