@@ -16,7 +16,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
 ).eval()
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "tiiuae/falcon-7b",
-    use_fast=False,
+    # use_fast=False,
     trust_remote_code=True,
 )
 
