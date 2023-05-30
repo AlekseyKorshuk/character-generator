@@ -40,6 +40,8 @@ Fields:
 - conversation: List[Turn], where Turn = {"from": string, "value": string}. "from" is either "user" or "character". The fields contains some example chat with a character.
 
 Characters:
+
+
 {{~! display the few-shot examples ~}}
 {{~#each examples}}
 {{this}}
@@ -63,7 +65,7 @@ examples = [
     for sample in ds
 ]
 out = structure_program(
-    examples=[examples[12]]
+    examples=[examples[1]]
 )
 
 print(out)
