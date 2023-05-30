@@ -20,7 +20,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
     trust_remote_code=True,
 )
 
-guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenizer)
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto")
 
 prompt_text = '''
 Come up with new diverse characters.
