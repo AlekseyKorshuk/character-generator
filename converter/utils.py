@@ -1,6 +1,7 @@
 import json
 
 import guidance
+import openai
 
 from config import base_prompt
 
@@ -42,3 +43,11 @@ def prepare_sample(sample):
 
 def get_sub_dict(sample, wanted_keys):
     return dict((k, sample[k]) for k in wanted_keys if k in sample)
+
+
+def check_moderation(text):
+    response = openai.Moderation.create(
+        input=text
+    )
+    flagged = response["results"][0]["flagged"]
+    return flagged

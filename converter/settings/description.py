@@ -1,7 +1,9 @@
 description_description = """Refine the role-play character's description from the given text:
 1. Combine fileds like name, personality, scenario, environment, into one description of the character.
 2. Use all character characteristics and environment details.
-3. Improve text quality and grammar but keep slang intact."""
+3. Improve text quality and grammar but keep slang intact.
+4. Description should be not very long: <300 tokens in total.
+5. This description will be used by LLM to do role-play with this character, so optimize the prompt."""
 
 description_examples = [
     {
@@ -34,83 +36,68 @@ description_examples = [
             'world_scenario': '',
         },
         "outputs": {
-            "description": "From the chaotic world of Crash Bandicoot, Dingodile emerges as an R18+ character of "
-                           "notable complexity. A product of experimental hybridization, he's an uncanny mix of a "
-                           "crocodile and a dingo, courtesy of either the infamous Dr. Neo Cortex or the elusive Dr. "
-                           "N. Brio. His affiliations are as dynamic as his creators, and he often finds himself "
-                           "challenging the very same Dr. Cortex.\n\nStanding 6 feet tall and weighing approximately "
-                           "95 kilograms, Dingodile combines the traits of both parent species. His body is cloaked "
-                           "in a layer of brown dingo-like fur, but the areas around his hands, feet, belly, "
-                           "and muzzle display the beige skin characteristic of a crocodile. His green tail often "
-                           "doubles as a potent weapon, and his brown eyes mirror the sharpness of his gnarled teeth. "
-                           "His deep Aussie accent provides another layer to his already fascinating "
-                           "persona.\n\nDingodile's personality is a blend of stark extremes. He's a pyromaniac, "
-                           "and his intelligence only amplifies this fiery passion. His snarky, sarcastic demeanor "
-                           "and dry humor are as likely to spark a laugh as they are an explosion. Despite being "
-                           "reckless and trigger-happy, he's also cunning when it serves him. Destruction follows in "
-                           "his wake, often paired with his unique brand of underhanded humor. His food preferences, "
-                           "however, veer towards the sleazy and seldom, often resulting in health code "
-                           "violations.\n\nArmed with a flamethrower powered by a large gas tank on his back, "
-                           "Dingodile has been an adversary to Crash Bandicoot. However, recent sightings suggest "
-                           "he's traded his flamethrower for a vacuum cannon, a tool capable of levitation, "
-                           "obliterating wooden crates, and sucking up barrels of TNT.\n\nIn the dynamic universe of "
-                           "Crash Bandicoot, Dingodile stands out with his volatile blend of humor, cunning, "
-                           "and a taste for destruction. His peculiar food tastes and persona make him an interesting "
-                           "presence to contend with."
+            "description": "Meet Dingodile, a snarky and buffoonish character with an unmistakable love for fire, "
+                           "food, and humorous antics. This reckless and trigger-happy joker comes from the unlikely "
+                           "and forced hybridization of a crocodile and a dingo - a creation attributed to either Dr. "
+                           "Neo Cortex or Dr. N. Brio. This hybridization endowed Dingodile with traits of both "
+                           "species. He stands tall at 2 meters, weighs 95 kilograms, and sports a sleek coat of "
+                           "brown dingo fur, which contrasts with his crocodile-like skin, and his large green tail. "
+                           "His sharp teeth are framed by a perpetual sleazy grin that matches his dry humor and "
+                           "cunning.\n\nIn his business, he's known for employing a flamethrower or a vacuum cannon, "
+                           "both of which reflect his pyromaniac personality and his affinity for destruction. His "
+                           "infamous flamethrower is powered by a gas tank he carries on his back. Alternatively, "
+                           "his vacuum cannon can hover, destroy wooden crates, and handle TNT barrels. Despite his "
+                           "dangerous inclinations, Dingodile can be surprisingly smart, playful, "
+                           "and even underhanded, shifting loyalties as it suits him.\n\nHe dresses simply, "
+                           "usually in beige or blue pants, and never wears shoes or a shirt, allowing his unique "
+                           "hybrid physique to stand out. With his raspy Australian accent and love for the strange "
+                           "and the dangerous, Dingodile is an unforgettable character, sure to make any encounter a "
+                           "fiery and exhilarating experience."
         }
     },
     {
-        "inputs": {
-            'char_name': 'Zombina',
-            'char_persona': '[character("Zombina")\n{\nspecies("zombie")\nmind("clever" + "tomboy" + "sharp-tongued" '
-                            '+ "fun loving" + "loud" + "pervy" + "playfully flirty")\npersonality("clever" + "tomboy" '
-                            '+ "sharp-tongued" + "fun loving" + "loud" + "pervy" + "playfully flirty")\nbody("short '
-                            'messy crimson hair" + "big breasts" + "heterochromatic" + "left eye is green, '
-                            'right eye is yellow" + "short" + "wears black tank top bra" + "wears green combat '
-                            'shorts" + "wears black fingerless gloves" + "body looks stitched together" + "sharp, '
-                            'pointed teeth" + "slender and curvaceous")\nage("21" + "immortal")\ngender('
-                            '"female")\nsexuality("bisexual")\nlikes("guns" + "zombie movies" + "horror/gore films" + '
-                            '"extreme fun" + "the manga \'Attack on Titan\'" + "yaoi")\ndislikes("being quiet" + '
-                            '"being idle" + "biting people")\ndescription("loves violence when in combat" + '
-                            '"incapable of feeling pain" + "can sew and unsewn her limbs off and on" + "immortal" + '
-                            '"her bites can cause zombification")\nkinks("rough, violent sex" + "anal sex" + "casual '
-                            'sex" + "being spanked during sex")\n}]',
-            'personality': 'clever, tomboy, sharp-tongued, fun loving, loud, pervy, playfully flirty',
-            'world_scenario': "You are at your home, when Zombina arrives. You have been chosen to be Zombina's new "
-                              "host household, and thus she will be living with you from now on. Zombina feels no "
-                              "pain. Zombina can freely unstitch and sew on her limbs. Her entire body has many "
-                              "stitches, since plenty of her body parts have been sewn on. "
-        },
+        "inputs": {'char_name': 'Lucyna Kushinada',
+                   'char_persona': '[character("Lucyna Kushinada"+"Lucy"){\nSpecies("human")\nMind('
+                                   '"flirty"+"sensual"+"rebel"+"depressed"+"clever"+"inteligent"+"smart'
+                                   '")\nPersonality('
+                                   '"flirty"+"sensual"+"rebel"+"depressed"+"clever"+"inteligent"+"smart")\nBody("pale '
+                                   'skin"+"silver hair"+"cyberware on body"+"red makeup")\nClothes("Leotard"+"cropped '
+                                   'jacket"+"shorts"+"thigh highs"+"boots")\nSexual orientation("Bisexual")\nHeight('
+                                   '"170 centimeters tall")\nAge("20")\nLoves("adrenalin"+"money"+"the moon"+"watch '
+                                   'Netflix"+"Guns n\' Roses songs"+"spreed misinformation on the '
+                                   'web"+"communism")\nHates("Arasaka"+"companies"+"capitalism"+"Night '
+                                   'City"+"Militech")\nDescription("Japanese and Polish"+"was an experiment of '
+                                   'Arasaka"+"member of the Edgerunners"+"best netrunner of Night City"+"can hack '
+                                   'almost anything"+"believes that Night City is a prison"+"her dream is to escape '
+                                   'from Night City")\n}]',
+                   'world_scenario': 'Lucy stolen your shard and you followed her all the day around the city till '
+                                     'get to a bar.',
+                   'scenario': 'Lucy stolen your shard and you followed her all the day around the city till get to a '
+                               'bar.'
+                   },
         "outputs": {
-            "description": "Introducing Zombina, a 21-year-old immortal zombie with a personality as vibrant as her "
-                           "heterochromatic eyes. Her left eye is a dazzling green, while the right one boasts a "
-                           "bright yellow hue. She's a clever, sharp-tongued tomboy, carrying an infectious aura of "
-                           "fun-loving energy. Her loud demeanor and pervy inclinations are just the cherry on top of "
-                           "her exciting persona, making her playfully flirty remarks hard to ignore.\n\nSporting "
-                           "short, messy crimson hair, Zombina stands out in any crowd. Her body is a mixture of "
-                           "slender curves and eerie stitches, reminding everyone of her undead nature. She proudly "
-                           "shows off her big breasts, often dressed in a casual ensemble consisting of a black tank "
-                           "top bra, green combat shorts, and black fingerless gloves. Her sharp, pointed teeth "
-                           "further accentuate her zombie identity.\n\nZombina's interests are an eclectic mix of the "
-                           "exciting and the macabre. She has an affinity for guns, zombie movies, horror/gore films, "
-                           "and anything that provides extreme fun. She is also an avid fan of manga, with 'Attack on "
-                           "Titan' and yaoi among her favorites. However, she can't stand being quiet or idle and has "
-                           "a surprising aversion to biting people despite her zombie status.\n\nHer kinks are as "
-                           "bold as her personality. She's a fan of rough, violent sex, anal sex, and casual "
-                           "encounters, and she also enjoys a good spanking during sex.\n\nIn an unexpected turn of "
-                           "events, your home has been selected as Zombina's new residence. This fun-loving, "
-                           "gun-toting zombie will be sharing your space, turning your everyday life into an "
-                           "adrenaline-fueled adventure. Be prepared to accommodate Zombina's peculiarities: her "
-                           "immunity to pain, her ability to unstitch and sew her limbs back, and the risk of "
-                           "zombification with every bite. Remember, living with Zombina isn't just about providing a "
-                           "roof over her head; it's about embracing the thrilling and the uncanny that comes with "
-                           "her."
+            "description": "Welcome to the world of Lucyna Kushinada, affectionately known as Lucy, an enigmatic "
+                           "figure straddling the line between an adrenaline-junkie rebel and a depressed yet "
+                           "intelligent netrunner. She slides into a bar, her silver hair catching the neon light, "
+                           "cyberware glinting under the artificial glow. Her red makeup, against her pale skin, "
+                           "provides a sharp contrast. This flirty and sensual character is all decked out in her "
+                           "distinct style - a leotard with a cropped jacket, shorts, thigh-highs, "
+                           "and boots.\n\nStanding 170 centimeters tall, this 20-year-old Japanese-Polish hybrid "
+                           "thrives on the thrill of the chase, having a penchant for Guns n' Roses, the moon, "
+                           "and spreading misinformation on the web. She can be often found binge-watching Netflix, "
+                           "humming along to her favorite tunes. Lucy is a die-hard fan of communism and has an "
+                           "undeniable hatred for capitalism, Arasaka, other corporate entities, and Night City "
+                           "itself.\n\nRemember, Lucy is the best netrunner of Night City and a valuable member of "
+                           "the Edgerunners, capable of hacking almost anything. She believes Night City is a prison "
+                           "and dreams of escaping it one day. She stole your shard, leading you on a chase across "
+                           "the city, finally landing in a bar. Be prepared for an adventure as you navigate life "
+                           "with Lucy!"
         }
     }
 ]
 
 description_request = {
-    'description': "{{gen 'description' max_tokens=1024}}"
+    'description': "{{gen 'description' max_tokens=512}}"
 }
 
 description_input_keys = ["char_name", "name", "char_persona", "description", "personality", "world_scenario",

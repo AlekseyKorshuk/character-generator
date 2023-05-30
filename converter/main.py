@@ -6,12 +6,18 @@ import guidance
 import transformers
 import tqdm
 
-from converter.utils import construct_guidance, prepare_sample, get_sub_dict, prepare_examples, prepare_query
+from converter.utils import construct_guidance, prepare_sample, get_sub_dict, prepare_examples, prepare_query, \
+    check_moderation
 from converter.settings import settings
 
 ds = load_dataset("AlekseyKorshuk/roleplay-characters", split="train")
 
-prepared_dataset = load_dataset("AlekseyKorshuk/character-prepared", split="train")
+prepared_dataset = None
+try:
+    prepared_dataset = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
+    configs = list(prepared_dataset)
+except:
+    configs = []
 # model = transformers.AutoModelForCausalLM.from_pretrained(
 #     "eachadea/vicuna-13b-1.1",
 #     torch_dtype=torch.float16,
@@ -24,11 +30,17 @@ prepared_dataset = load_dataset("AlekseyKorshuk/character-prepared", split="trai
 # guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer)
 guidance.llm = guidance.llms.OpenAI("text-davinci-003")
 
-configs = list(prepared_dataset)
 for sample in tqdm.tqdm(ds):
     name = sample["char_name"] or sample["name"]
-    if name in list(prepared_dataset["original_name"]):
+    if prepared_dataset is not None and name in list(prepared_dataset["original_name"]):
         print("Skip, already in the dataset")
+        continue
+
+    prepared_sample = prepare_sample(sample)
+    prepared_sample.pop("image", None)
+    prepared_sample.pop("metadata", None)
+    text = json.dumps(prepared_sample)
+    if not check_moderation(text):
         continue
 
     try:
@@ -58,7 +70,7 @@ for sample in tqdm.tqdm(ds):
         print(bot_config)
         configs.append(bot_config)
         ds_config = Dataset.from_list(configs)
-        ds_config.push_to_hub("AlekseyKorshuk/character-prepared")
+        ds_config.push_to_hub("AlekseyKorshuk/character-prepared-seeds")
     except Exception as ex:
         print(ex)
 

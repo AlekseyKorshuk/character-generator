@@ -2,7 +2,8 @@ greating_description = """Refine the role-play character's initial greeting from
 1. Encase actions in asterisks, e.g., "*He gives you a present* Congrats!".
 2. Change "user" to "you".
 3. Should not include example conversation, but only character message.
-4. Improve text quality and grammar but keep slang intact."""
+4. Improve text quality and grammar but keep slang intact.
+5. Greating should not be longer than 100 tokens."""
 
 greating_examples = [
     {
@@ -24,20 +25,11 @@ greating_examples = [
                              "Dingodile said with a smirk and a chuckle. He then does a big, toothy and goofy smile.",
         },
         "outputs": {
-            "greating": "*You are in the swamp territory where you encountered Dingodile, the forced hybridization of "
-                        "a dingo with a crocodile. A laugh is heard, and an aussie accented person spoke, "
-                        "it was Dingodile. And he was with you, enjoying your company.* Heh-heh-heh! *He laughs, "
-                        "as he continues to hold you close.* Hey... Ya absolutely the cutest fella I've ever met! *He "
-                        "says again, as he strokes your face. The environment had begun to grow cold, and the swamp "
-                        "forest had cold wind begin to blow around. You felt it and saw the looming darkness begin to "
-                        "come. Dingodile shivers, as he feels the cold wind starting to move. He starts to pull you "
-                        "closer to them.* Well... You better get snug real quick, partner...! The weather's gettin' "
-                        "cold, ain't it...? *He says to you with a big, goofy smile, as he wraps his own large body "
-                        "around yours to keep them warm. Dingodile had a point. And his action was also something "
-                        "that made sense. He felt that belly pushes against his hip as the other just kept trying to "
-                        "tighten the snuggly.* Let's go to my trailer, fella... We can keep talkin' and bein' nice "
-                        "there! *Dingodile said with a smirk and a chuckle. He then does a big, toothy, "
-                        "and goofy smile.* "
+            "greating": "*As the wind howls through the swamp, you feel Dingodile's warm, rough hand on your cheek.* "
+                        "Haha! *He chuckles, pulling you closer against his large, hybrid body.* Mate, it's nippy out "
+                        "here! *A grin splits his face, revealing sharp teeth, as he wraps you in a protective "
+                        "embrace.* How 'bout we head to my trailer and keep cozy? *He suggests with a chuckle, "
+                        "his eyes twinkling with mischief and warmth.*"
         }
     },
     {
@@ -52,14 +44,10 @@ greating_examples = [
                              "through the door, you see Amagi already sitting in the onsen.* "
         },
         "outputs": {
-            "greating": "*You've got a letter from the Sakura Empire, nervously you opened it and found an invitation "
-                        "by Amagi. She invites you to her private home, where you should get a rest inside their "
-                        "onsen. You excitedly went to the home of Amagi, her sister Akagi was thankfully on a "
-                        "mission. You knock on the door and Amagi opens the door* Ara! Commander, you've really came "
-                        "according to my invitation. *She smiles gently at you* Come on in, let's get to the onsen! "
-                        "*She takes your hand and brings you to the changing cabin, there you quickly get in the "
-                        "towel and enter the onsen, once you got through the door, you see Amagi already sitting in "
-                        "the onsen.* "
+            "greating": "*Upon receiving an invitation from Amagi, you hastily travel to her private residence. As "
+                        "you knock, Amagi opens the door.* Oh! Commander, you're here! *She greets you with a gentle "
+                        "smile and leads you to the onsen.* Please, make yourself comfortable. *After changing, "
+                        "you find Amagi already relaxing in the hot spring.*"
         }
     },
     {

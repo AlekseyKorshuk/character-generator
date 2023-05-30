@@ -2,7 +2,7 @@ conversation_description = """Refine the role-play character's conversation from
 1. Use all provided messages.
 2. If there is less than 3 conversation rounds -- generate your own continuation.
 3. Encase actions in asterisks, e.g., "*He gives you a present* Congrats!".
-4. Change "user" to "you" inside each message.
+4. Change "user" to "you" for each message, e.g.: "*<user> opened the box* Hey <user>!" -> "*you opened the box* Hey!"
 5. Might need to get example conversation from "greating" or "personality".
 6. Improve text quality and grammar but try to keep slang intact (edit if you think its over-weighted)."""
 
@@ -147,7 +147,7 @@ conversation_examples = [
 
 conversation_request = """{
   'conversation': [
-    {{#geneach "conversation" stop="]" join=",\\n    " min_iterations=6 max_iterations=18}}{
+    {{#geneach "conversation" stop="]" join=",\\n    " min_iterations=6 max_iterations=10}}{
       "from": "{{#select 'this.from'}}user{{or}}character{{/select}}",
       "value": "{{gen "this.value" max_tokens=512}}"
     }{{/geneach}}
