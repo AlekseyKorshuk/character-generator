@@ -3,7 +3,7 @@ from datasets import load_dataset
 import guidance
 import transformers
 
-ds = load_dataset("AlekseyKorshuk/roleplay-characters-seeds", split="train")
+ds = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
 
 # set the default language model used to execute guidance programs
 # guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
