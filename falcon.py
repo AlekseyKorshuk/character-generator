@@ -26,7 +26,7 @@ tokenizer.eos_token_id = 2
 # import pdb;
 #
 # pdb.set_trace()
-guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto")
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto", token_healing=False, temperature=1.0)
 
 prompt_text = '''
 Come up with new diverse characters.
