@@ -14,7 +14,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     low_cpu_mem_usage=True,
     trust_remote_code=True,
 ).eval()
-setattr(model.config, "max_position_embeddings", 2048)
+setattr(model.config, "max_sequence_length", 2048)
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "tiiuae/falcon-7b",
     use_fast=False,
