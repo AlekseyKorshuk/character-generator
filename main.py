@@ -50,7 +50,7 @@ Fields:
 {{sample}}{{~/assistant}}
 
 {{#assistant~}}
-{'name': '{{gen "name" max_tokens=64 temperature=1.0}}', 'description': '{{gen "context" max_tokens=768 temperature=1.0}}', 'greating': '{{gen "greating" max_tokens=512 temperature=1.0}}', 'conversation': [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=8}}{'from': '{{#select 'this.role'}}user{{or}}character{{/select}}', 'value': '{{gen "this.value" max_tokens=256 temperature=1.0}}'}{{/geneach}}]}
+{'name': '{{gen "name" max_tokens=64 temperature=0.7}}', 'description': '{{gen "context" max_tokens=768 temperature=0.7}}', 'greating': '{{gen "greating" max_tokens=512 temperature=0.7}}', 'conversation': [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=8}}{'from': '{{#select 'this.role'}}user{{or}}character{{/select}}', 'value': '{{gen "this.value" max_tokens=256 temperature=0.7}}'}{{/geneach}}]}
 {{~/assistant~}}
 ''')
 
