@@ -8,14 +8,15 @@ ds = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
 # set the default language model used to execute guidance programs
 # guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
 model = transformers.AutoModelForCausalLM.from_pretrained(
-    "TheBloke/vicuna-13B-1.1-HF",
-    torch_dtype=torch.float16,
+    "tiiuae/falcon-7b-instruct",
+    torch_dtype=torch.bfloat16,
     device_map="sequential",
     low_cpu_mem_usage=True,
     trust_remote_code=True,
 ).eval()
+setattr(model.config, "max_position_embeddings", 2048)
 tokenizer = transformers.AutoTokenizer.from_pretrained(
-    "TheBloke/vicuna-13B-1.1-HF",
+    "tiiuae/falcon-7b-instruct",
     use_fast=False,
     trust_remote_code=True,
 )
