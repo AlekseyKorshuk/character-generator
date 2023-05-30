@@ -10,10 +10,10 @@ ds = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
 model = transformers.AutoModelForCausalLM.from_pretrained(
     "tiiuae/falcon-7b",
     torch_dtype=torch.bfloat16,
-    device_map="sequential",
-    low_cpu_mem_usage=True,
+    # device_map="sequential",
+    # low_cpu_mem_usage=True,
     trust_remote_code=True,
-).eval()
+).eval().to(0)
 setattr(model.config, "max_sequence_length", 2048)
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "tiiuae/falcon-7b",
