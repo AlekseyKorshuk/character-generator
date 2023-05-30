@@ -10,7 +10,7 @@ ds = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
 model = transformers.AutoModelForCausalLM.from_pretrained(
     "TheBloke/vicuna-13B-1.1-HF",
     torch_dtype=torch.float16,
-    device_map="auto",
+    device_map="sequential",
     low_cpu_mem_usage=True,
     trust_remote_code=True,
 ).eval()
@@ -44,7 +44,7 @@ Characters:
 {{~#each examples}}
 {{this}}
 {{~/each}}
-{"name": "{{gen "name" max_tokens=64}}", "description": "{{gen "context" max_tokens=768}}", "greating": "{{gen "greating" max_tokens=512}}", "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=4 max_iterations=6}}{"from": "{{#select 'this.role'}}user{{or}}character{{/select}}", "value": "{{gen "this.value"}}"}{{/geneach}}]}
+{"name": "{{gen "name" max_tokens=64}}", "description": "{{gen "context" max_tokens=768}}", "greating": "{{gen "greating" max_tokens=512}}", "conversation": [{{#geneach "conversation" stop="]" join=", " min_iterations=4 max_iterations=4}}{"from": "{{#select 'this.role'}}user{{or}}character{{/select}}", "value": "{{gen "this.value"}}"}{{/geneach}}]}
 '''.strip()
 
 # define the guidance program
@@ -63,7 +63,7 @@ examples = [
     for sample in ds
 ]
 out = structure_program(
-    examples=examples[:1]
+    examples=[examples[12]]
 )
 
 print(out)
