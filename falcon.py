@@ -20,6 +20,9 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
     trust_remote_code=True,
 )
 tokenizer.bos_token = tokenizer.eos_token
+import pdb;
+
+pdb.set_trace()
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto")
 
 prompt_text = '''
