@@ -9,7 +9,7 @@ ds = load_dataset("AlekseyKorshuk/character-prepared-seeds", split="train")
 # guidance.llm = guidance.llms.transformers.MPT("mosaicml/mpt-7b-storywriter", device=0)
 model = transformers.AutoModelForCausalLM.from_pretrained(
     "tiiuae/falcon-7b",
-    torch_dtype=torch.float16,
+    torch_dtype=torch.bfloat16,
     device_map="auto",
     low_cpu_mem_usage=True,
     trust_remote_code=True,
@@ -19,7 +19,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
     # use_fast=False,
     trust_remote_code=True,
 )
-
+tokenizer.bot_token = tokenizer.eos_token
 guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto")
 
 prompt_text = '''
