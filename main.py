@@ -32,8 +32,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 guidance.llm = guidance.llms.transformers.Vicuna(model=model, tokenizer=tokenizer)
 
 # define the guidance program
-structure_program = guidance(
-'''
+structure_program = guidance('''
 {{~#system~}}
 Come up with new diverse characters.
 Characters can be both humans and non-humans.
@@ -48,7 +47,7 @@ Fields:
 - greeting: string, default greeting
 - example_dialogue: List[Turn], where Turn = {"from": string, "value": string}. "from" is either "user" or "character". The fields contains some example chat with a character.
 {{~/system}}{{#assistant~}}  
-sample{{~/assistant}}
+{{sample}}{{~/assistant}}
 
 {{#assistant~}}
 {'name': '{{gen "name" max_tokens=64 temperature=1.0}}', 'description': '{{gen "context" max_tokens=768 temperature=1.0}}', 'greating': '{{gen "greating" max_tokens=512 temperature=1.0}}', 'conversation': [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=8}}{'from': '{{#select 'this.role'}}user{{or}}character{{/select}}', 'value': '{{gen "this.value" max_tokens=256 temperature=1.0}}'}{{/geneach}}]}
