@@ -50,16 +50,14 @@ Fields:
 {{sample}}{{~/assistant}}
 
 {{#assistant~}}
-{'name': '{{gen "name" max_tokens=64}}', 'description': '{{gen "context" max_tokens=768}}', 'greating': '{{gen "greating" max_tokens=512}}', 'conversation': [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=8}}{'from': '{{#select 'this.role'}}user{{or}}character{{/select}}', 'value': '{{gen "this.value" max_tokens=256}}'}{{/geneach}}]}
+{'name': '{{gen "name" max_tokens=64 temperature=1.0}}', 'description': '{{gen "context" max_tokens=768 temperature=1.0}}', 'greating': '{{gen "greating" max_tokens=512 temperature=1.0}}', 'conversation': [{{#geneach "conversation" stop="]" join=", " min_iterations=6 max_iterations=8}}{'from': '{{#select 'this.role'}}user{{or}}character{{/select}}', 'value': '{{gen "this.value" max_tokens=256 temperature=1.0}}'}{{/geneach}}]}
 {{~/assistant~}}
 ''')
 
 # execute the program
 
 print("Generating..")
-out = structure_program(
-    sample=res,
-)
+out = structure_program(sample=res)
 
 print(out)
 import pdb;
