@@ -20,7 +20,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
     use_fast=False,
     trust_remote_code=True,
 )
-# tokenizer.bos_token = tokenizer.eos_token
+tokenizer.bos_token_id = 1
+tokenizer.eos_token_id = 2
 # import pdb;
 #
 # pdb.set_trace()
