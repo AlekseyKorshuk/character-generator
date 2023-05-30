@@ -14,15 +14,15 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     low_cpu_mem_usage=True,
     trust_remote_code=True,
 ).eval()
-# setattr(model.config, "max_position_embeddings", 2048)
+setattr(model.config, "max_position_embeddings", 2048)
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "tiiuae/falcon-7b",
     use_fast=False,
     trust_remote_code=True,
     return_token_type_ids=False
 )
-# tokenizer.bos_token_id = 1
-# tokenizer.eos_token_id = 2
+tokenizer.bos_token_id = 1
+tokenizer.eos_token_id = 2
 # import pdb;
 #
 # pdb.set_trace()
