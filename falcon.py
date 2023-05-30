@@ -13,7 +13,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     device_map="auto",
     low_cpu_mem_usage=True,
     trust_remote_code=True,
-).eval().to(0)
+).eval()
 # setattr(model.config, "max_sequence_length", 2048)
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     "ausboss/llama-30b-supercot",
@@ -26,7 +26,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 # import pdb;
 #
 # pdb.set_trace()
-guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto", token_healing=False, temperature=1.0)
+guidance.llm = guidance.llms.Transformers(model=model, tokenizer=tokenizer, device_map="auto", token_healing=False,
+                                          temperature=1.0)
 
 prompt_text = '''
 Come up with new diverse characters.
